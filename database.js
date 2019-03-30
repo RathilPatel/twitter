@@ -19,8 +19,8 @@ exports.getdata= function(offset,res){
 	var con = mysql.createConnection({
 	  host: "localhost",
 	  user: "root",
-	  password: "root",
-	  database: "twitterdata",charset:"utf8mb4"
+	  password: "sundaY05@",
+	  database: "mysql",charset:"utf8mb4"
 	});
 	con.connect(function(error){
 

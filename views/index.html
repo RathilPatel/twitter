@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <style type="text/css">
+
+    </style>
+    <title>Unscript2k18</title>
+  </head>
+  <body>
+
+    <header>
+      <nav class="navbar navbar-fixed-top navbar-expand-sm bg-primary navbar-dark ">
+        <h2 class="navbar-brand brand-name">
+           Twitter Board 
+       </h2>
+       
+      </nav>
+    </header>
+
+    <section>
+
+        <div id="tweetarea" class="row">
+          
+
+        </div>
+
+    </section>
+    
+    <footer class="footer bg-primary">
+        <div>
+          <h5>Use the HashTag #frcrce,#frcrcehackathon,#unscript or mention @frcrce_bandra<h5>
+          <h5>A product by thompson and franky naidu</h5>
+        </div>
+
+    </footer>
+        
+    	
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  	<script type="text/javascript">
+  	var count=0;
+    function loaddata(){
+  		$.ajax({
+              url:"./gettweets",
+              method:"GET",
+              data:{'startFrom':count},
+              success:function(result){
+                var limit=result.length;
+                result.forEach(function(data,index){
+                 // console.log(data.tweets,index);
+                  var cards="";
+                  if(data.tweets=="undefined"){
+                      data.tweets=" ";
+                  }
+                  console.log(data,(data.murl!=null));
+                  if(data.murl!=null && data.murl!="null"){
+                    var image_text='<img src="'+data.murl+'" height="100%" width="100%" style="width: 150px;height: 150px;align-content:center;">';
+                    cards='<div class="card"><div class="card-body"><div class="row"><div class="col-xs-4"><img src="'+ data.img + '" style="height:  50px; width:  50px; border-radius: 50%;"></div><div class="col-xs-7"><p class="card-title" style="margin-left: 10px">'+data.name+'<br>@'+data.screenname+'</p></div></div><div class="card-text">'+data.tweets.substring(0,data.start)+'<br>'+image_text+'</div><span><img src="https://cdn1.iconfinder.com/data/icons/logotypes/32/twitter-128.png" height="20px"></span></div></div>';
+                  }
+                  else{
+                    cards='<div class="card"><div class="card-body"><div class="row"><div class="col-xs-4"><img src="'+ data.img + '" style="height:  50px; width:  50px; border-radius: 50%;"></div><div class="col-xs-7"><p class="card-title" style="margin-left: 10px">'+data.name+'<br>'+data.screenname+'</p></div></div><div class="card-text">'+data.tweets+'<br></div><span><img src="https://cdn1.iconfinder.com/data/icons/logotypes/32/twitter-128.png" height="20px"></span></div></div>';
+                  }
+                  var area=document.createElement("div");
+                  area.classList.add('col-sm-4','col-lg-3','col-md-3','animated','zoomIn');
+                  area.innerHTML=cards;
+                  console.log(area);
+                  document.getElementById("tweetarea").prepend(area);
+                    
+                });
+
+                if(result.length>0){
+                  count=count+result.length;
+                  console.log(count);
+                }
+              }
+            });
+
+    
+  	}
+
+    $(document).ready(function(){
+      loaddata();
+      startCall();
+    });
+
+    function startCall(){
+      setInterval(function(){
+        loaddata()
+      },5000);
+    }
+
+    </script>
+    <style type="text/css">
+      .card{
+        margin:10px;
+      }
+
+      footer {
+          position: fixed;
+          height: 90px;
+          bottom: 0;
+          width: 100%;
+      }
+
+      footer div{
+        text-align:center;
+        margin: 10px;
+      }
+
+      footer div h5{
+        color:white;
+      }
+
+      html { overflow-y: visible; overflow-x: hidden; }
+    </style>
+  </body>
+</html>

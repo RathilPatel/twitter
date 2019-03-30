@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <style type="text/css">
+
+    </style>
+    <title>Tech Talk 2018</title>
+  </head>
+  <body>
+
+    <header>
+      <nav class="navbar navbar-fixed-top navbar-expand-sm bg-primary navbar-dark ">
+        <h2 class="navbar-brand brand-name">
+           Twitter Board 
+       </h2>
+       
+      </nav>
+    </header>
+
+    <section>
+
+        <div id="maindiv" class="row">
+          <ul id="winnerarea" class="list-group">
+            
+          </ul>
+
+        </div>
+
+    </section>
+    
+    <footer class="footer bg-primary">
+        <div>
+          <h5>Use the HashTag #frcrce #crce  or mention @frcrce_bandra<h5>
+          <h5>A product by thompson naidu and franky naidu</h5>
+        </div>
+
+    </footer>
+        
+    	
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  	<script type="text/javascript">
+  	var count=0;
+    function loaddata(){
+  		$.ajax({
+              url:"./winlist",
+              method:"GET",
+              data:{},
+              success:function(result){
+                var limit=result.length;
+                result.forEach(function(data,index){
+                 // console.log(data.tweets,index);
+                 var listele="";
+                  if(index==0){
+                    listele=(index+1)+") <strong>"+data.name+"</strong><br>"+data.screenname+" with tweets: "+data.points+"  (winner)";
+                  }else{
+                    listele=(index+1)+") <strong>"+data.name+"</strong><br>"+data.screenname+" with tweets: "+data.points+"";
+                  }
+                  var area=document.createElement("li");
+                  area.classList.add('list-group-item');
+                  area.innerHTML=listele;
+                  document.getElementById("winnerarea").append(area);
+                    
+                });
+
+                if(result.length>0){
+                  count=count+result.length;
+                  console.log(count);
+                }
+              }
+            });
+
+    
+  	}
+
+    $(document).ready(function(){
+      loaddata();
+    });
+
+    function startCall(){
+      loaddata();
+    }
+
+    </script>
+    <style type="text/css">
+      .card{
+        margin:10px;
+      }
+
+      footer {
+          position: fixed;
+          height: 90px;
+          bottom: 0;
+          width: 100%;
+      }
+
+      footer div{
+        text-align:center;
+        margin: 10px;
+      }
+
+      footer div h5{
+        color:white;
+      }
+
+      html { overflow-y: visible; overflow-x: hidden; }
+    </style>
+  </body>
+</html>

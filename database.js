@@ -53,8 +53,8 @@ exports.insertdata=(text,screen_name,name,profileurl,desp,point,media,media_star
 	var con = mysql.createConnection({
 	  host: "localhost",
 	  user: "root",
-	  password: "root",
-	  database: "twitterdata",
+	  password: "sundaY05@",
+	  database: "mysql",
 	  charset:"utf8mb4"
 	});
 
